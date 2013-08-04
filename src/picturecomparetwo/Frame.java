@@ -22,15 +22,23 @@ import javax.swing.event.ChangeListener;
  */
 public class Frame extends JPanel
 {
+    /*
+     * Still to do..... make the labels work when img is loaded.
+     * Make images show in the correct area....
+     * implement comparison....
+     * implement tolerace lvl....
+     */
     private JFrame frame;
-    private JButton imgLoadOne, imgLoadTwo;
+    private JButton imgLoadOne, imgLoadTwo, compareBtn;
     private JFileChooser fileChooser;
     private JSlider slider;
-    private JLabel sliderLabel;
+    private JLabel sliderLabel, imgOneLabel, imgTwoLabel;
     private int errorTolerance;
+    private LoadPic picOne, picTwo;
     
     public Frame()
     {
+        fileChooser = new JFileChooser();
         errorTolerance = 0;
         
         //Basic frame settings
@@ -81,7 +89,12 @@ public class Frame extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                //Load and then display image one from here....
+                int choice = fileChooser.showOpenDialog(frame);
+                if(choice == JFileChooser.APPROVE_OPTION)
+                {
+                    picOne = new LoadPic(fileChooser.getSelectedFile().getAbsolutePath());
+                    System.out.println("Pic one: " + picOne.isValid());
+                }
             }
         });
         this.add(imgLoadOne);
@@ -93,12 +106,20 @@ public class Frame extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                //Load and then display image two from here.....
+                int choice = fileChooser.showOpenDialog(frame);
+                if(choice == JFileChooser.APPROVE_OPTION)
+                {
+                    picTwo = new LoadPic(fileChooser.getSelectedFile().getAbsolutePath());
+                    System.out.println("Pic two: " + picTwo.isValid());
+                }
             }
         });
         this.add(imgLoadTwo);
         
         //compare buttom setup.
+        compareBtn = new JButton("Compare");
+        compareBtn.setBounds(501, 755, 100, 30);
+        this.add(compareBtn);
     }
     
     private void sliderSetup()

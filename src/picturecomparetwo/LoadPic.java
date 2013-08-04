@@ -19,6 +19,10 @@ public class LoadPic
     //Regular expression to ensure the image is of the correct type.
     private final String IMG_REG = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)";
     
+    
+    //default constutor... not sure if ill need it but just incase....
+    public LoadPic(){}
+    
     public LoadPic(String filePath)
     {
         valid = false;
