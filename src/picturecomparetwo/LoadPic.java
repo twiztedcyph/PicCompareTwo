@@ -66,4 +66,9 @@ public class LoadPic
     {
         return image;
     }
+    
+    public String getFilePath()
+    {
+        return this.filePath;
+    }
 }

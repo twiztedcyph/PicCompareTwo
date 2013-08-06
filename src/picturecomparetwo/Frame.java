@@ -55,6 +55,7 @@ public class Frame extends JPanel
         frame.setSize(new Dimension(1100, 900));
         frame.setLocationRelativeTo(null);
         
+        labelSetup();
         buttonSetup();
         sliderSetup();
         
@@ -93,7 +94,13 @@ public class Frame extends JPanel
                 if(choice == JFileChooser.APPROVE_OPTION)
                 {
                     picOne = new LoadPic(fileChooser.getSelectedFile().getAbsolutePath());
-                    System.out.println("Pic one: " + picOne.isValid());
+                    if(picOne.isValid())
+                    {
+                        imgOneLabel.setText(picOne.getFilePath());
+                    }else
+                    {
+                        imgOneLabel.setText("No file loaded....");
+                    }
                 }
             }
         });
@@ -110,7 +117,13 @@ public class Frame extends JPanel
                 if(choice == JFileChooser.APPROVE_OPTION)
                 {
                     picTwo = new LoadPic(fileChooser.getSelectedFile().getAbsolutePath());
-                    System.out.println("Pic two: " + picTwo.isValid());
+                    if(picTwo.isValid())
+                    {
+                        imgTwoLabel.setText(picTwo.getFilePath());
+                    }else
+                    {
+                        imgTwoLabel.setText("No file loaded....");
+                    }
                 }
             }
         });
@@ -124,9 +137,7 @@ public class Frame extends JPanel
     
     private void sliderSetup()
     {
-        sliderLabel = new JLabel("Error tolerance: " + errorTolerance);
-        sliderLabel.setBounds(503, 660, 120, 20);
-        this.add(sliderLabel);
+        
         
         slider = new JSlider(JSlider.HORIZONTAL, 0, 50, 0);
         slider.setMajorTickSpacing(5);
@@ -145,5 +156,22 @@ public class Frame extends JPanel
             }
         });
         this.add(slider);
+    }
+    
+    private void labelSetup()
+    {
+        imgOneLabel = new JLabel("No file loaded....");
+        imgOneLabel.setBounds(18, 615, 528, 30);
+        imgOneLabel.setForeground(Color.blue);
+        this.add(imgOneLabel);
+        
+        imgTwoLabel = new JLabel("No file loaded....");
+        imgTwoLabel.setForeground(Color.blue);
+        imgTwoLabel.setBounds(555, 615, 528, 30);
+        this.add(imgTwoLabel);
+        
+        sliderLabel = new JLabel("Error tolerance: " + errorTolerance);
+        sliderLabel.setBounds(503, 660, 120, 20);
+        this.add(sliderLabel);
     }
 }
